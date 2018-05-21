@@ -1,0 +1,33 @@
+{
+    "data": {
+        "title": {
+            "ui:widget": "text"
+        },
+        "cover_image": {
+            "ui:widget": "text"
+        },
+        "tabs": {
+            "items": {
+                "title": {
+                    "ui:widget": "text"
+                },
+                "count": {
+                    "ui:widget": "text"
+                },
+                "number": {
+                    "ui:widget": "text"
+                },
+                "description": {
+                    "ui:widget": "textarea"
+                },
+                "tabIcon": {
+                    "ui:widget": "text"
+                },
+                "desIcon": {
+                    "ui:widget": "text"
+                }
+            }
+        }
+    },
+    "mandatory_config": {}
+}

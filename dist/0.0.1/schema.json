@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "data": {
+            "id": "/properties/data",
+            "properties": {
+                "title": {
+                    "id": "/properties/data/properties/title",
+                    "type": "string",
+                    "title": "Title"
+                },
+                "cover_image": {
+                    "id": "/properties/data/properties/cover_image",
+                    "type": "string",
+                    "title": "Cover Image URL"
+                },
+                "tabs": {
+                    "id": "/properties/data/properties/tabs",
+                    "type": "array",
+                    "title": "Tabs",
+                    "items": {
+                        "id": "/properties/data/properties/tabs/items",
+                        "title": "Tabs",
+                        "type": "object",
+                        "separator": "#",
+                        "hideTitle": true,
+                        "properties": {
+                            "title": {
+                                "id": "/properties/data/properties/tabs/items/properties/title",
+                                "type": "string",
+                                "title": "Title"
+                            },
+                            "count": {
+                                "id": "/properties/data/properties/tabs/items/properties/count",
+                                "type": "string",
+                                "title": "Count"
+                            },
+                            "number": {
+                                "id": "/properties/data/properties/tabs/items/properties/number",
+                                "type": "string",
+                                "title": "Number"
+                            },
+                            "description": {
+                                "id": "/properties/data/properties/tabs/items/properties/description",
+                                "type": "string",
+                                "title": "Description"
+                            },
+                            "tabIcon": {
+                                "id": "/properties/data/properties/tabs/items/properties/tabIcon",
+                                "type": "string",
+                                "title": "Tab Icon URL"
+                            },
+                            "desIcon": {
+                                "id": "/properties/data/properties/tabs/items/properties/desIcon",
+                                "type": "string",
+                                "title": "Description Icon URL"
+                            }
+                        },
+                        "required": ["title", "count", "number", "description", "tabIcon", "desIcon"]
+                    }
+                }
+            },
+
+            "title": "Card Data",
+            "type": "object",
+            "required": ["title", "cover_image", "tabs"]
+        }
+    },
+    "type": "object"
+
+}

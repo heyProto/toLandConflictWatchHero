@@ -1,0 +1,253 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import '../css/LCW_cover.css';
+import '../css/styles.css';
+
+export default class toCard extends React.Component {
+
+  constructor(props) {
+    super(props)
+    let stateVar = {
+      fetchingData: true,
+      dataJSON: {},
+      optionalConfigJSON: {},
+      languageTexts: undefined,
+      siteConfigs: this.props.siteConfigs,
+      currentTab:1
+    };
+
+    if (this.props.dataJSON) {
+      stateVar.fetchingData = false;
+      stateVar.dataJSON = this.props.dataJSON;
+      stateVar.languageTexts = this.getLanguageTexts(this.props.dataJSON.data.language);
+    }
+
+    if (this.props.optionalConfigJSON) {
+      stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
+    }
+
+    this.state = stateVar;
+  }
+
+  exportData() {
+    return document.getElementById('protograph_div').getBoundingClientRect();
+  }
+
+  componentDidMount() {
+    if (this.state.fetchingData) {
+      let items_to_fetch = [
+        axios.get(this.props.dataURL)
+      ];
+
+      if (this.props.siteConfigURL) {
+        items_to_fetch.push(axios.get(this.props.siteConfigURL));
+      }
+
+      axios.all(items_to_fetch).then(axios.spread((card, site_configs) => {
+        let stateVar = {
+          fetchingData: false,
+          dataJSON: card.data,
+          optionalConfigJSON:{},
+          siteConfigs: site_configs ? site_configs.data : this.state.siteConfigs,
+          currentTab:1
+        };
+
+        stateVar.dataJSON.data.language = stateVar.siteConfigs.primary_language.toLowerCase();
+        stateVar.languageTexts = this.getLanguageTexts(stateVar.dataJSON.data.language);
+        this.setState(stateVar);
+      }));
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.dataJSON) {
+      this.setState({
+        dataJSON: nextProps.dataJSON
+      });
+    }
+  }
+
+  getLanguageTexts(languageConfig) {
+    let language = languageConfig ? languageConfig : "hindi",
+      text_obj;
+
+    switch(language.toLowerCase()) {
+      case "hindi":
+        text_obj = {
+          font: "'Sarala', sans-serif"
+        }
+        break;
+      default:
+        text_obj = {
+          font: undefined
+        }
+        break;
+    }
+
+    return text_obj;
+  }
+
+  selectTab(tab){
+    this.setState({
+      currentTab:tab
+    });
+  }
+
+  renderTabs(tabs){
+    let tabNames;
+    let tabClass;
+    tabNames = tabs.map((tab,i)=>{
+      tabClass = (i+1 === this.state.currentTab)? "single-tab active":"single-tab";
+      return(
+        <a key={i.toString()} className="tab-links" onClick={()=>this.selectTab(i+1)}>
+          <div className={tabClass}>
+            {tab.title}
+            <div className="tab-value">
+              {this.formatNumber(tab.number)}
+              <img src={tab.tabIcon} height="24px"/>
+            </div>
+          </div>
+        </a>
+      ) 
+    })
+    return tabNames;
+  }
+
+  formatNumber(num){
+    let rev = "";
+    let frNumRev="";
+    let frNum = '';
+    let remain;
+    for (var i = num.length - 1; i >= 0; i--) {
+        rev += num[i];
+    }
+    remain = rev;
+    frNum = remain.slice(0,3);
+    if(num.length>3){
+      frNum += ',';
+      remain = remain.slice(3);
+      while(remain.length>0){
+        if(remain.length<=2){
+          frNum += remain;
+          break;
+        }
+        else{
+          frNum += remain.slice(0,2)+',';
+          remain = remain.slice(2);
+        }
+      }
+
+      
+    }
+    for (var i = frNum.length - 1; i >= 0; i--) {
+      frNumRev += frNum[i];
+    }
+    
+    return frNumRev;
+  }
+
+  renderTabContent(tabs,tabNo){
+    let tabContent;
+    let display;
+    tabContent = tabs.map((tab,i)=>{
+      display = (tabNo === i+1)? "":"none";
+      return(
+        <div className="selected-tab-content" style={{display:display}}>
+          <div className="content-title">
+            {tab.title} <img src={tab.desIcon}/>
+          </div>
+          <div className="display-value">
+            {this.formatNumber(tab.number)}
+          </div>
+          <p>{tab.description}</p>
+        </div>
+      )
+    })
+    return tabContent;
+    
+  }
+  
+
+  renderCol7() {
+    let data = this.state.dataJSON.data;
+    if (this.state.fetchingData ){
+      return(<div>Loading</div>)
+    } else {
+      let bg_image = data.cover_image;
+      let title = data.title;
+      let tabs = data.tabs;
+      return (
+        <div
+          id="protograph_div"
+          className="protograph-col7-mode"
+          style={{ fontFamily: this.state.languageTexts.font }}>
+          {/* content */}
+          
+            <div className="col-16-cover-area">
+              <div className="background-image">
+                <img src={bg_image}/>
+              </div>
+              <div className="color-overlay">
+                <div className="page-title">
+                  Data
+                </div>
+                {this.renderTabContent(data.tabs,this.state.currentTab)}
+                <div className="vertical-tabs">
+                  {this.renderTabs(data.tabs)}
+                </div>
+              </div>
+            </div>
+            
+           
+            
+          
+        </div>
+      )
+    }
+  }
+
+  renderCol4() {
+    if (this.state.fetchingData) {
+      return (<div>Loading</div>)
+    } else {
+      return (
+        <div
+          id="protograph_div"
+          className="protograph-col4-mode"
+          style={{ fontFamily: this.state.languageTexts.font }}>
+          {/* content */}
+        </div>
+      )
+    }
+  }
+
+  renderCol3() {
+    if (this.state.fetchingData) {
+      return (<div>Loading</div>)
+    } else {
+      return (
+        <div
+          id="protograph_div"
+          className="protograph-col3-mode"
+          style={{ fontFamily: this.state.languageTexts.font }}>
+            {/* content */}
+        </div>
+      )
+    }
+  }
+
+  render() {
+    switch(this.props.mode) {
+      case 'col7' :
+        return this.renderCol7();
+        break;
+      case 'col4':
+        return this.renderCol4();
+        break;
+      case 'col3' :
+        return this.renderCol3();
+        break;
+    }
+  }
+}
