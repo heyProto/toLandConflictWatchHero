@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import '../css/LCW_cover.css';
-import '../css/styles.css';
+
 
 export default class toCard extends React.Component {
 

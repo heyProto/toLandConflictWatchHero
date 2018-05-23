@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Card from './card.jsx';
 import JSONSchemaForm from '../../lib/js/react-jsonschema-form';
-import '../css/edit-form.css';
 
 export default class editToCard extends React.Component {
   constructor(props) {
@@ -105,6 +104,14 @@ export default class editToCard extends React.Component {
 
     let blockquote_string = `<h1>${d.title}</h1>`;
     // Create blockqoute string.
+    blockqoute_string += `<p>${d.cover_image}</p>`;
+    for(let i in d.tabs){
+      blockqoute_string += `<p>${d.tabs[i].title}</p>`;
+      blockqoute_string += `<p>${d.tabs[i].number}</p>`;
+      blockqoute_string += `<p>${d.tabs[i].description}</p>`;
+      blockqoute_string += `<p>${d.tabs[i].tabIcon}</p>`;
+      blockqoute_string += `<p>${d.tabs[i].desIcon}</p>`;
+    }
     let seo_blockquote = '<blockquote>' + blockquote_string + '</blockquote>'
     return seo_blockquote;
   }
