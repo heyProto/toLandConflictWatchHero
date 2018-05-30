@@ -178,7 +178,7 @@ export default class editToCard extends React.Component {
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
                     <a className={`item ${this.state.mode === 'col16' ? 'active' : ''}`}
-                      data-mode='col7'
+                      data-mode='col16'
                       onClick={this.toggleMode}
                     >
                       col-16
