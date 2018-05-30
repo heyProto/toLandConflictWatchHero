@@ -177,11 +177,11 @@ export default class editToCard extends React.Component {
               <div className="twelve wide column proto-card-preview proto-share-card-div">
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
-                    <a className={`item ${this.state.mode === 'col7' ? 'active' : ''}`}
+                    <a className={`item ${this.state.mode === 'col16' ? 'active' : ''}`}
                       data-mode='col7'
                       onClick={this.toggleMode}
                     >
-                      col-7
+                      col-16
                     </a>
                     <a className={`item ${this.state.mode === 'col4' ? 'active' : ''}`}
                       data-mode='col4'
