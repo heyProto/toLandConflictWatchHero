@@ -43,7 +43,7 @@ export default class editToCard extends React.Component {
         axios.get(this.props.optionalConfigSchemaURL),
         axios.get(this.props.uiSchemaURL)
       ])
-      .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema, linkSources) => {
+      .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema) => {
         let stateVars = {
           fetchingData: false,
           dataJSON: card.data,
@@ -80,22 +80,6 @@ export default class editToCard extends React.Component {
         this.setState({ publishing: false });
       });
     }
-    // switch(this.state.step) {
-    //   case 1:
-    //     this.setState({ step: 2 });
-    //     break;
-    //   case 2:
-    //     if (typeof this.props.onPublishCallback === "function") {
-    //       let dataJSON = this.state.dataJSON;
-    //       dataJSON.data.section = dataJSON.data.title;
-    //       this.setState({ publishing: true, dataJSON: dataJSON });
-    //       let publishCallback = this.props.onPublishCallback();
-    //       publishCallback.then((message) => {
-    //         this.setState({ publishing: false });
-    //       });
-    //     }
-    //     break;
-    // }
   }
 
 
@@ -104,13 +88,9 @@ export default class editToCard extends React.Component {
 
     let blockquote_string = `<h1>${d.title}</h1>`;
     // Create blockqoute string.
-    blockqoute_string += `<p>${d.cover_image}</p>`;
     for(let i in d.tabs){
       blockqoute_string += `<p>${d.tabs[i].title}</p>`;
-      blockqoute_string += `<p>${d.tabs[i].number}</p>`;
       blockqoute_string += `<p>${d.tabs[i].description}</p>`;
-      blockqoute_string += `<p>${d.tabs[i].tabIcon}</p>`;
-      blockqoute_string += `<p>${d.tabs[i].desIcon}</p>`;
     }
     let seo_blockquote = '<blockquote>' + blockquote_string + '</blockquote>'
     return seo_blockquote;
@@ -148,26 +128,10 @@ export default class editToCard extends React.Component {
 
   showButtonText() {
     return 'Publish';
-    // switch(this.state.step) {
-    //   case 1:
-    //     return 'Next';
-    //     break;
-    //   case 2:
-    //     return 'Publish';
-    //     break;
-    // }
   }
 
   getUISchemaJSON() {
     return this.state.uiSchemaJSON;
-    // switch (this.state.step) {
-    //   case 1:
-    //     return this.state.uiSchemaJSON;
-    //     break;
-    //   default:
-    //     return {};
-    //     break;
-    // }
   }
 
   onPrevHandler() {
@@ -207,7 +171,7 @@ export default class editToCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    ToCluster
+                    ToLCWHero
                   </div>
                 </div>
                 <JSONSchemaForm schema={this.renderSchemaJSON()}
@@ -234,12 +198,6 @@ export default class editToCard extends React.Component {
                       onClick={this.toggleMode}
                     >
                       col-4
-                    </a>
-                    <a className={`item ${this.state.mode === 'col3' ? 'active' : ''}`}
-                      data-mode='col3'
-                      onClick={this.toggleMode}
-                    >
-                      col-3
                     </a>
                   </div>
                 </div>

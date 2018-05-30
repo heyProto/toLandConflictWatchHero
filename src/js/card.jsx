@@ -19,18 +19,16 @@ export default class toCard extends React.Component {
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
-      stateVar.languageTexts = this.getLanguageTexts(this.props.dataJSON.data.language);
     }
 
     if (this.props.optionalConfigJSON) {
       stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
     }
-
     this.state = stateVar;
   }
 
   exportData() {
-    return document.getElementById('protograph_div').getBoundingClientRect();
+    return this.props.selector.getBoundingClientRect();
   }
 
   componentDidMount() {
@@ -51,9 +49,6 @@ export default class toCard extends React.Component {
           siteConfigs: site_configs ? site_configs.data : this.state.siteConfigs,
           currentTab:1
         };
-
-        stateVar.dataJSON.data.language = stateVar.siteConfigs.primary_language.toLowerCase();
-        stateVar.languageTexts = this.getLanguageTexts(stateVar.dataJSON.data.language);
         this.setState(stateVar);
       }));
     }
@@ -65,26 +60,6 @@ export default class toCard extends React.Component {
         dataJSON: nextProps.dataJSON
       });
     }
-  }
-
-  getLanguageTexts(languageConfig) {
-    let language = languageConfig ? languageConfig : "hindi",
-      text_obj;
-
-    switch(language.toLowerCase()) {
-      case "hindi":
-        text_obj = {
-          font: "'Sarala', sans-serif"
-        }
-        break;
-      default:
-        text_obj = {
-          font: undefined
-        }
-        break;
-    }
-
-    return text_obj;
   }
 
   selectTab(tab){
@@ -136,13 +111,10 @@ export default class toCard extends React.Component {
           remain = remain.slice(2);
         }
       }
-
-      
     }
     for (var i = frNum.length - 1; i >= 0; i--) {
       frNumRev += frNum[i];
-    }
-    
+    }   
     return frNumRev;
   }
 
@@ -163,8 +135,7 @@ export default class toCard extends React.Component {
         </div>
       )
     })
-    return tabContent;
-    
+    return tabContent;   
   }
   
 
@@ -177,30 +148,21 @@ export default class toCard extends React.Component {
       let title = data.title;
       let tabs = data.tabs;
       return (
-        <div
-          id="protograph_div"
-          className="protograph-col7-mode"
-          style={{ fontFamily: this.state.languageTexts.font }}>
-          {/* content */}
-          
-            <div className="col-16-cover-area">
-              <div className="background-image">
-                <img src={bg_image}/>
+        <div id="protograph_div" className="protograph-col7-mode">
+          <div className="col-16-cover-area">
+            <div className="background-image">
+              <img src={bg_image}/>
+            </div>
+            <div className="color-overlay">
+              <div className="page-title">
+                Data
               </div>
-              <div className="color-overlay">
-                <div className="page-title">
-                  Data
-                </div>
-                {this.renderTabContent(data.tabs,this.state.currentTab)}
-                <div className="vertical-tabs">
-                  {this.renderTabs(data.tabs)}
-                </div>
+              {this.renderTabContent(data.tabs,this.state.currentTab)}
+              <div className="vertical-tabs">
+                {this.renderTabs(data.tabs)}
               </div>
             </div>
-            
-           
-            
-          
+          </div>         
         </div>
       )
     }
@@ -211,26 +173,7 @@ export default class toCard extends React.Component {
       return (<div>Loading</div>)
     } else {
       return (
-        <div
-          id="protograph_div"
-          className="protograph-col4-mode"
-          style={{ fontFamily: this.state.languageTexts.font }}>
-          {/* content */}
-        </div>
-      )
-    }
-  }
-
-  renderCol3() {
-    if (this.state.fetchingData) {
-      return (<div>Loading</div>)
-    } else {
-      return (
-        <div
-          id="protograph_div"
-          className="protograph-col3-mode"
-          style={{ fontFamily: this.state.languageTexts.font }}>
-            {/* content */}
+        <div id="protograph_div" className="protograph-col4-mode">
         </div>
       )
     }
@@ -243,9 +186,6 @@ export default class toCard extends React.Component {
         break;
       case 'col4':
         return this.renderCol4();
-        break;
-      case 'col3' :
-        return this.renderCol3();
         break;
     }
   }
