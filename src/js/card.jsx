@@ -172,8 +172,26 @@ export default class toCard extends React.Component {
     if (this.state.fetchingData) {
       return (<div>Loading</div>)
     } else {
+      let data = this.state.dataJSON.data,
+        bg_image = data.cover_image,
+        title = data.title,
+        tabs = data.tabs;
       return (
         <div id="protograph_div" className="protograph-col4-mode">
+          <div className="col-4-cover-area">
+            <div className="background-image">
+              <img src={bg_image}/>
+            </div>
+            <div className="color-overlay">
+              <div className="page-title">
+                Data
+              </div>
+              {this.renderTabContent(data.tabs,this.state.currentTab)}
+              <div className="vertical-tabs">
+                {this.renderTabs(data.tabs)}
+              </div>
+            </div>
+          </div>    
         </div>
       )
     }

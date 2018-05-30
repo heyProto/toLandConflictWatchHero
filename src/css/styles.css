@@ -166,5 +166,35 @@ a.tab-links {
     opacity: 1;
 }
 
+.col-4-cover-area{
+    height: 430px;
+    width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.col-4-cover-area .color-overlay {
+    height: 430px;
+    width: 300px;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    background: rgba(207, 162, 16, 0.8);
+}
+
+.col-4-cover-area .single-tab{
+    height: 80px;
+    padding: 10px 20px;
+}
+
+.col-4-cover-area .single-tab .tab-value{
+    line-height: 48px
+}
+
+.col-4-cover-area .tab-links:last-child .single-tab {
+    height: 80px;
+}
 
 /* Note the above height and width are just samples. Change it as per the usecase. */
