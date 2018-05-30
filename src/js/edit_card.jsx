@@ -97,22 +97,12 @@ export default class editToCard extends React.Component {
   }
 
   renderSchemaJSON() {
-    let schema;
-    switch(this.state.step){
-      case 1:
-        return this.state.schemaJSON.properties.data;
-        break;
-      // Add more schemas...
-    }
+    return this.state.schemaJSON.properties.data;
   }
 
   renderFormData() {
-    switch(this.state.step) {
-      case 1:
-        return this.state.dataJSON.data;
-        break;
-      // Other form data.
-    }
+    let data = this.state.dataJSON.data;
+    return data;
   }
 
   // showLinkText() {
