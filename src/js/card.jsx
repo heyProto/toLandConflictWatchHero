@@ -37,16 +37,11 @@ export default class toCard extends React.Component {
         axios.get(this.props.dataURL)
       ];
 
-      if (this.props.siteConfigURL) {
-        items_to_fetch.push(axios.get(this.props.siteConfigURL));
-      }
-
-      axios.all(items_to_fetch).then(axios.spread((card, site_configs) => {
+      axios.all(items_to_fetch).then(axios.spread((card) => {
         let stateVar = {
           fetchingData: false,
           dataJSON: card.data,
           optionalConfigJSON:{},
-          siteConfigs: site_configs ? site_configs.data : this.state.siteConfigs,
           currentTab:1
         };
         this.setState(stateVar);

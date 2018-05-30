@@ -14,19 +14,17 @@ ProtoGraph.Card.toLCWHero.prototype.renderSEO = function(data) {
 ProtoGraph.Card.toLCWHero.prototype.renderEdit = function(onPublishCallback) {
     this.mode = 'edit';
     this.onPublishCallback = onPublishCallback;
-    ReactDOM.render( <
-        EditCard dataURL = { this.options.data_url }
-        schemaURL = { this.options.schema_url }
-        optionalConfigURL = { this.options.configuration_url }
-        optionalConfigSchemaURL = { this.options.configuration_schema_url }
-        uiSchemaURL = { this.options.ui_schema_url }
-        onPublishCallback = { this.onPublishCallback }
-        mode = { this.mode }
-        ref = {
-            (e) => {
-                this.containerInstance = this.containerInstance || e;
-            }
-        }
-        />,
-        this.options.selector);
+    ReactDOM.render(
+    <EditCard
+      dataURL={this.options.data_url}
+      schemaURL={this.options.schema_url}
+      uiSchemaURL={this.options.ui_schema_url}
+      optionalConfigURL={this.options.configuration_url}
+      optionalConfigSchemaURL={this.options.configuration_schema_url}
+      onPublishCallback={this.onPublishCallback}
+      mode={this.mode}
+      ref={(e) => {
+        this.containerInstance = this.containerInstance || e;
+      }}/>,
+    this.options.selector);
 }
