@@ -139,7 +139,7 @@ export default class toCard extends React.Component {
   }
   
 
-  renderCol7() {
+  renderCol16() {
     let data = this.state.dataJSON.data;
     if (this.state.fetchingData ){
       return(<div>Loading</div>)
@@ -199,8 +199,8 @@ export default class toCard extends React.Component {
 
   render() {
     switch(this.props.mode) {
-      case 'col7' :
-        return this.renderCol7();
+      case 'col16' :
+        return this.renderCol16();
         break;
       case 'col4':
         return this.renderCol4();

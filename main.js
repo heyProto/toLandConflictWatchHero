@@ -18,19 +18,14 @@ ProtoGraph.Card.toLCWHero.prototype.getData = function(data) {
     return this.containerInstance.exportData();
 }
 
-ProtoGraph.Card.toLCWHero.prototype.renderCol7 = function(data) {
-    this.mode = 'col7';
+ProtoGraph.Card.toLCWHero.prototype.renderCol16 = function(data) {
+    this.mode = 'col16';
     this.render();
 }
 ProtoGraph.Card.toLCWHero.prototype.renderCol4 = function(data) {
     this.mode = 'col4';
     this.render();
 }
-ProtoGraph.Card.toLCWHero.prototype.renderCol3 = function(data) {
-    this.mode = 'col3';
-    this.render();
-}
-
 ProtoGraph.Card.toLCWHero.prototype.renderScreenshot = function(data) {
     this.mode = 'screenshot';
     this.render();

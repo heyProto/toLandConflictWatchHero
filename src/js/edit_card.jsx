@@ -10,7 +10,7 @@ export default class editToCard extends React.Component {
     this.state = {
       step: 1,
       dataJSON: {},
-      mode: "col7",
+      mode: "col16",
       publishing: false,
       schemaJSON: undefined,
       fetchingData: true,
@@ -89,8 +89,8 @@ export default class editToCard extends React.Component {
     let blockquote_string = `<h1>${d.title}</h1>`;
     // Create blockqoute string.
     for(let i in d.tabs){
-      blockqoute_string += `<p>${d.tabs[i].title}</p>`;
-      blockqoute_string += `<p>${d.tabs[i].description}</p>`;
+      blockquote_string += `<p>${d.tabs[i].title}</p>`;
+      blockquote_string += `<p>${d.tabs[i].description}</p>`;
     }
     let seo_blockquote = '<blockquote>' + blockquote_string + '</blockquote>'
     return seo_blockquote;
