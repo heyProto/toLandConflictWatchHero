@@ -10,10 +10,11 @@ export default class toCard extends React.Component {
     let stateVar = {
       fetchingData: true,
       dataJSON: {},
+      mappingJSON: {},
       optionalConfigJSON: {},
       languageTexts: undefined,
       siteConfigs: this.props.siteConfigs,
-      currentTab:1
+      currentTab: ''
     };
 
     if (this.props.dataJSON) {
@@ -33,16 +34,19 @@ export default class toCard extends React.Component {
 
   componentDidMount() {
     if (this.state.fetchingData) {
+      let mappingJSON_URL = 'https://cdn.protograph.pykih.com/55825b09931bee16055a/mapping.json';
       let items_to_fetch = [
-        axios.get(this.props.dataURL)
+        axios.get(this.props.dataURL),
+        axios.get(mappingJSON_URL)
       ];
 
-      axios.all(items_to_fetch).then(axios.spread((card) => {
+      axios.all(items_to_fetch).then(axios.spread((card, mapping) => {
+         // console.log(mapping, card, "mapping")
         let stateVar = {
           fetchingData: false,
           dataJSON: card.data,
-          optionalConfigJSON:{},
-          currentTab:1
+          mappingJSON: mapping.data,
+          optionalConfigJSON:{}
         };
         this.setState(stateVar);
       }));
@@ -55,38 +59,35 @@ export default class toCard extends React.Component {
         dataJSON: nextProps.dataJSON
       });
     }
+    this.selectTab();
   }
 
-  selectTab(tab){
-    let url;
-    switch(tab){
-      case 1:
-        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-conflicts-1171.html'
-        break;
-      case 2:
-        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-people-affected-1176.html'
-        break;
-      case 3:
-        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/investments-1175.html'
-        break;
-      case 4:
-        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/land-area-affected-1177.html'
-        break;
+  selectTab(){
+    if (this.props.page_url) {
+      let d = this.state.mappingJSON.filter((e) => this.props.page_url === e.url)[0],
+        tab = d.tab;
+      // console.log(tab , "tab")
+      return tab;
     }
-    console.log(tab, "tab", url)
+  }
+
+  handleTabClick(tab){
+    let d = this.state.mappingJSON.filter((e) => tab === e.tab) [0],
+      url = d.url;
     this.setState({
-      currentTab:tab,
-      url: url
+      currentTab: tab
     });
+    window.open(url, '_top');
   }
 
   renderTabs(tabs){
     let tabNames;
     let tabClass;
     tabNames = tabs.map((tab,i)=>{
-      tabClass = (i+1 === this.state.currentTab)? "single-tab active":"single-tab";
+      let currTab = this.state.currentTab === '' ? this.selectTab() : this.state.currentTab;
+      tabClass = (i+1 === currTab)? "single-tab active":"single-tab";
       return(
-        <a key={i.toString()} className="tab-links" target="_top" href={this.state.url} onClick={()=>this.selectTab(i+1)}>
+        <a key={i.toString()} className="tab-links" onClick={()=>this.handleTabClick(i+1)}>
           <div className={tabClass}>
             {tab.title}
             <div className="tab-value">
@@ -152,13 +153,14 @@ export default class toCard extends React.Component {
   
 
   renderCol16() {
-    let data = this.state.dataJSON.data;
     if (this.state.fetchingData ){
       return(<div>Loading</div>)
     } else {
-      let bg_image = data.cover_image;
-      let title = data.title;
-      let tabs = data.tabs;
+      let data = this.state.dataJSON.data,
+        bg_image = data.cover_image,
+        title = data.title,
+        tabs = data.tabs,
+        currTab = this.state.currentTab === '' ? this.selectTab() : this.state.currentTab;
       return (
         <div id="protograph_div" className="protograph-col7-mode">
           <div className="col-16-cover-area">
@@ -169,7 +171,7 @@ export default class toCard extends React.Component {
               <div className="page-title">
                 Data
               </div>
-              {this.renderTabContent(data.tabs,this.state.currentTab)}
+              {this.renderTabContent(data.tabs, currTab)}
               <div className="vertical-tabs">
                 {this.renderTabs(data.tabs)}
               </div>
@@ -187,7 +189,8 @@ export default class toCard extends React.Component {
       let data = this.state.dataJSON.data,
         bg_image = data.cover_image,
         title = data.title,
-        tabs = data.tabs;
+        tabs = data.tabs,
+        currTab = this.state.currentTab === '' ? this.selectTab() : this.state.currentTab;
       return (
         <div id="protograph_div" className="protograph-col4-mode">
           <div className="col-4-cover-area">
@@ -198,7 +201,7 @@ export default class toCard extends React.Component {
               <div className="page-title">
                 Data
               </div>
-              {this.renderTabContent(data.tabs,this.state.currentTab)}
+              {this.renderTabContent(data.tabs, currTab)}
               <div className="vertical-tabs">
                 {this.renderTabs(data.tabs)}
               </div>

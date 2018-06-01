@@ -35,6 +35,7 @@ ProtoGraph.Card.toLCWHero.prototype.render = function() {
     ReactDOM.render(
     <Card
       dataURL={this.options.data_url}
+      page_url={this.options.page_url}
       selector={this.options.selector}
       clickCallback={this.options.onClickCallback}
       mode={this.mode}
