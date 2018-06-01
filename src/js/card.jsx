@@ -86,7 +86,7 @@ export default class toCard extends React.Component {
     tabNames = tabs.map((tab,i)=>{
       tabClass = (i+1 === this.state.currentTab)? "single-tab active":"single-tab";
       return(
-        <a key={i.toString()} className="tab-links" href={this.state.url} onClick={()=>this.selectTab(i+1)}>
+        <a key={i.toString()} className="tab-links" target="_self" href={this.state.url} onClick={()=>this.selectTab(i+1)}>
           <div className={tabClass}>
             {tab.title}
             <div className="tab-value">
