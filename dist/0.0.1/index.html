@@ -30,6 +30,7 @@
 
     let view_cast_id = findGetParameter('view_cast_id'),
       domain_name = (findGetParameter('domain') || ""),
+      page_url = (findGetParameter('page_url') || ""),
       base_url = findGetParameter('base_url') || "https://cdn.protograph.pykih.com";
 
     var ReceiverConsumer = Oasis.Consumer.extend({
@@ -45,6 +46,7 @@
             params = {
               selector: document.querySelector('#tolink-div'),
               data_url: data_base_path + "/data.json",
+              page_url: page_url,
               domain: domain_name,
               onClickCallback: function () {
                 let h = x.getData().height,
