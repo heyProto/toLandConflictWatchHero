@@ -58,8 +58,25 @@ export default class toCard extends React.Component {
   }
 
   selectTab(tab){
+    let url;
+    switch(tab){
+      case 1:
+        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-conflicts-1171.html'
+        break;
+      case 2:
+        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-people-affected-1176.html'
+        break;
+      case 3:
+        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/investments-1175.html'
+        break;
+      case 4:
+        url = 'https://d2izuvkqhcn1gq.cloudfront.net/stories/land-area-affected-1177.html'
+        break;
+    }
+    console.log(tab, "tab", url)
     this.setState({
-      currentTab:tab
+      currentTab:tab,
+      url: url
     });
   }
 
@@ -69,7 +86,7 @@ export default class toCard extends React.Component {
     tabNames = tabs.map((tab,i)=>{
       tabClass = (i+1 === this.state.currentTab)? "single-tab active":"single-tab";
       return(
-        <a key={i.toString()} className="tab-links" onClick={()=>this.selectTab(i+1)}>
+        <a key={i.toString()} className="tab-links" href={this.state.url} onClick={()=>this.selectTab(i+1)}>
           <div className={tabClass}>
             {tab.title}
             <div className="tab-value">
