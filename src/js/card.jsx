@@ -72,8 +72,6 @@ export default class toCard extends React.Component {
         tab = d.tab;
       // console.log(tab , "tab")
       return tab;
-    } else {
-      return 1;
     }
   }
 
