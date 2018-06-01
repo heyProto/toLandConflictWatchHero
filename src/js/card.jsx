@@ -22,6 +22,10 @@ export default class toCard extends React.Component {
       stateVar.dataJSON = this.props.dataJSON;
     }
 
+    if(this.props.mappingJSON){
+      stateVar.mappingJSON = this.props.mappingJSON;
+    }
+
     if (this.props.optionalConfigJSON) {
       stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
     }
@@ -56,7 +60,7 @@ export default class toCard extends React.Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.dataJSON) {
       this.setState({
-        dataJSON: nextProps.dataJSON
+        dataJSON: nextProps.dataJSON,
       });
     }
     this.selectTab();
@@ -68,6 +72,8 @@ export default class toCard extends React.Component {
         tab = d.tab;
       // console.log(tab , "tab")
       return tab;
+    } else {
+      return 1;
     }
   }
 
@@ -161,6 +167,7 @@ export default class toCard extends React.Component {
         title = data.title,
         tabs = data.tabs,
         currTab = this.state.currentTab === '' ? this.selectTab() : this.state.currentTab;
+        console.log(currTab, "currTab")
       return (
         <div id="protograph_div" className="protograph-col7-mode">
           <div className="col-16-cover-area">

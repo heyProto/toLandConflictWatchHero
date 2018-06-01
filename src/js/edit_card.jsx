@@ -10,6 +10,7 @@ export default class editToCard extends React.Component {
     this.state = {
       step: 1,
       dataJSON: {},
+      mappingJSON: {},
       mode: "col16",
       publishing: false,
       schemaJSON: undefined,
@@ -41,18 +42,19 @@ export default class editToCard extends React.Component {
         axios.get(this.props.schemaURL),
         axios.get(this.props.optionalConfigURL),
         axios.get(this.props.optionalConfigSchemaURL),
-        axios.get(this.props.uiSchemaURL)
+        axios.get(this.props.uiSchemaURL),
+        axios.get('https://cdn.protograph.pykih.com/55825b09931bee16055a/mapping.json')
       ])
-      .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema) => {
+      .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema, mapping) => {
         let stateVars = {
           fetchingData: false,
           dataJSON: card.data,
+          mappingJSON: mapping.data,
           schemaJSON: schema.data,
           optionalConfigJSON: opt_config.data,
           optionalConfigSchemaJSON: opt_config_schema.data,
           uiSchemaJSON: uiSchema.data
         };
-
         this.setState(stateVars);
       }));
     }
@@ -66,8 +68,7 @@ export default class editToCard extends React.Component {
       return {
         dataJSON: dataJSON
       }
-    })
-     
+    })     
   }
 
   onSubmitHandler({formData}) {
@@ -195,6 +196,7 @@ export default class editToCard extends React.Component {
                   <Card
                     mode={this.state.mode}
                     dataJSON={this.state.dataJSON}
+                    mappingJSON={this.state.mappingJSON}
                     schemaJSON={this.state.schemaJSON}
                     optionalConfigJSON={this.state.optionalConfigJSON}
                     optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
