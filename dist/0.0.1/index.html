@@ -31,7 +31,7 @@
     let view_cast_id = findGetParameter('view_cast_id'),
       domain_name = (findGetParameter('domain') || ""),
       page_url = (findGetParameter('page_url') || ""),
-      origin = (findGetParameter('page_url') || "https://d2izuvkqhcn1gq.cloudfront.net"),
+      origin = (findGetParameter('origin') || "https://d2izuvkqhcn1gq.cloudfront.net"),
       base_url = findGetParameter('base_url') || "https://cdn.protograph.pykih.com";
 
     var ReceiverConsumer = Oasis.Consumer.extend({

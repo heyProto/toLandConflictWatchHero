@@ -79,7 +79,7 @@ export default class toCard extends React.Component {
 
   handleTabClick(tab){
     let d = this.state.mappingJSON.filter((e) => tab === e.tab) [0],
-      url = d.url;
+      url = this.props.origin +""+ d.url;
     this.setState({
       currentTab: tab
     });
@@ -89,6 +89,7 @@ export default class toCard extends React.Component {
   renderTabs(tabs){
     let tabNames;
     let tabClass;
+    console.log(this.props.origin)
     tabNames = tabs.map((tab,i)=>{
       let currTab = this.state.currentTab === '' ? this.selectTab() : this.state.currentTab;
       tabClass = (i+1 === currTab)? "single-tab active":"single-tab";
