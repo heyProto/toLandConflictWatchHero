@@ -68,7 +68,7 @@ export default class toCard extends React.Component {
 
   selectTab(){
     if (this.props.page_url) {
-      let d = this.state.mappingJSON.filter((e) => this.props.page_url === e.tab)[0],
+      let d = this.state.mappingJSON.filter((e) => this.props.page_url == e.page_id)[0],
         tab = d.tab;
       // console.log(tab , "tab")
       return tab;
@@ -102,7 +102,7 @@ export default class toCard extends React.Component {
             </div>
           </div>
         </a>
-      ) 
+      )
     })
     return tabNames;
   }
@@ -133,7 +133,7 @@ export default class toCard extends React.Component {
     }
     for (var i = frNum.length - 1; i >= 0; i--) {
       frNumRev += frNum[i];
-    }   
+    }
     return frNumRev;
   }
 
@@ -154,9 +154,9 @@ export default class toCard extends React.Component {
         </div>
       )
     })
-    return tabContent;   
+    return tabContent;
   }
-  
+
 
   renderCol16() {
     if (this.state.fetchingData ){
@@ -183,7 +183,7 @@ export default class toCard extends React.Component {
                 {this.renderTabs(data.tabs)}
               </div>
             </div>
-          </div>         
+          </div>
         </div>
       )
     }
@@ -213,7 +213,7 @@ export default class toCard extends React.Component {
                 {this.renderTabs(data.tabs)}
               </div>
             </div>
-          </div>    
+          </div>
         </div>
       )
     }

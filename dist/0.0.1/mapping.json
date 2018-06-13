@@ -1,22 +1,26 @@
 [
   {
-    "url": "https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-conflicts-1171.html",
+    "url": "/",
     "column": "no_of_conflicts",
-    "tab": 1
+    "tab": 1,
+    "page_id": 1171
   },
   {
-    "url": "https://d2izuvkqhcn1gq.cloudfront.net/stories/no-of-people-affected-1176.html",
+    "url": "/stories/no-of-people-affected-1176.html",
     "column": "no_of_people_affected",
-    "tab": 2
+    "tab": 2,
+    "page_id": 1176
   },
   {
-    "url": "https://d2izuvkqhcn1gq.cloudfront.net/stories/investments-1175.html",
+    "url": "/stories/investments-1175.html",
     "column": "investments",
-    "tab": 3
+    "tab": 3,
+    "page_id": 1175
   },
   {
-    "url": "https://d2izuvkqhcn1gq.cloudfront.net/stories/land-area-affected-1177.html",
+    "url": "/stories/land-area-affected-1177.html",
     "column": "land_area_affected",
-    "tab": 4
+    "tab": 4,
+    "page_id": 1177
   }
-] 
+]

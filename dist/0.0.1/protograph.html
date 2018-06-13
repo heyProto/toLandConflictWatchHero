@@ -31,6 +31,7 @@
         mode = findGetParameter('mode'),
         domain_name = (findGetParameter('domain') || ""),
         page_url = (findGetParameter('page_url') || ""),
+        origin = (findGetParameter('page_url') || "https://d2izuvkqhcn1gq.cloudfront.net"),
         base_url = findGetParameter('base_url') || "https://cdn.protograph.pykih.com";
 
       if(typeof (view_cast_id) !== 'undefined'){
@@ -41,7 +42,8 @@
           data_url: data_base_path + "/data.json",
           domain: domain_name,
           page_url: page_url,
-          site_config_url: base_url + '/header.json'
+          site_config_url: base_url + '/header.json',
+          origin: origin
         })
         renderWithMode(mode);
       }
