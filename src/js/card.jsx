@@ -68,8 +68,15 @@ export default class toCard extends React.Component {
 
   selectTab(){
     if (this.props.page_url) {
-      let d = this.state.mappingJSON.filter((e) => this.props.page_url == e.page_id)[0],
-        tab = d.tab;
+      let d = this.state.mappingJSON.filter((e) => this.props.page_url == e.page_id)[0];
+      let tab;
+        if(d){
+          tab = d.tab;
+        }
+        else{
+          tab = 1;
+        }
+        
       // console.log(tab , "tab")
       return tab;
     } else {
